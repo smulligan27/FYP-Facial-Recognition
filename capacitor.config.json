@@ -1,0 +1,11 @@
+{
+  "appId": "io.ionic.starter",
+  "appName": "Facial-Rec",
+  "bundledWebRuntime": false,
+  "npmClient": "npm",
+  "webDir": "www",
+  "cordova": {},
+  "server": {
+    "url": "http://127.0.1.1:8100"
+  }
+}

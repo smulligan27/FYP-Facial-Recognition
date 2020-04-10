@@ -1,0 +1,8 @@
+{
+  "name": "Facial-Rec",
+  "integrations": {
+    "capacitor": {},
+    "cordova": {}
+  },
+  "type": "angular"
+}
