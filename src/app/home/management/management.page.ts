@@ -1,9 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { AngularFireAuthModule } from '@angular/fire/auth'
-//import { AngularFireAuth } from '@angular/fire/auth'
-import { auth } from 'firebase/app';
+import { AngularFireAuth } from '@angular/fire/auth'
+import { auth } from 'firebase/app'
 import { Router } from '@angular/router'
-//import { AngularFireAuth } from 'angularfire2/auth';
+import * as firebase from 'firebase';
+import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
+import { NavController } from '@ionic/angular';
+import { AuthenticateService } from 'src/app/services/authentication.service';
+
 
 
 
@@ -14,30 +17,53 @@ import { Router } from '@angular/router'
 })
 export class ManagementPage implements OnInit {
 
-  username: string = ""
-  password: string = ""
-
+  validations_form: FormGroup;
+  errorMessage: string = '';
+ 
   constructor(
-    //private auth: AngularFireAuth,
-    public afAuth: AngularFireAuth,
-    //public af: AngularFireAuth,
-    public router: Router
-    ) { }
-
-  ngOnInit() {}
-
-  
-  async login() {
-    const { username, password } = this
-    try {
-      const res = await this.afAuth.auth.signInWithEmailAndPassword(username, password)
+    public router: Router,
+    private navCtrl: NavController,
+    private authService: AuthenticateService,
+    private formBuilder: FormBuilder
+ 
+  ) { }
+ 
+  ngOnInit() {
+ 
+    this.validations_form = this.formBuilder.group({
+      email: new FormControl('', Validators.compose([
+        Validators.required,
+        Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$')
+      ])),
+      password: new FormControl('', Validators.compose([
+        Validators.minLength(5),
+        Validators.required
+      ])),
+    });
+  }
+ 
+ 
+  validation_messages = {
+    'email': [
+      { type: 'required', message: 'Email is required.' },
+      { type: 'pattern', message: 'Please enter a valid email.' }
+    ],
+    'password': [
+      { type: 'required', message: 'Password is required.' },
+      { type: 'minlength', message: 'Password must be at least 5 characters long.' }
+    ]
+  };
+ 
+ 
+  loginUser(value){
+    this.authService.loginUser(value)
+    .then(res => {
+      console.log(res);
+      this.errorMessage = "";
+      //this.navCtrl.navigateForward('/menu');
       this.router.navigate(['/home/tabs/management/menu'])
-    }catch(err) {
-      console.dir(err)
-      if (err.code === "auth/user-not-found") {
-        console.log("User not found")
-      }
-    }
-
+    }, err => {
+      this.errorMessage = err.message;
+    })
   }
 }

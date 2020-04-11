@@ -16,6 +16,8 @@ import { AngularFireStorageModule } from '@angular/fire/storage'
 import { AngularFireAuthModule } from '@angular/fire/auth'
 import { InAppBrowser } from '@ionic-native/in-app-browser'
 import { HTTP } from '@ionic-native/http/ngx'
+import { AuthenticateService } from './services/authentication.service';
+import * as firebase from 'firebase';
 
 @NgModule({
   declarations: [AppComponent],
@@ -25,14 +27,15 @@ import { HTTP } from '@ionic-native/http/ngx'
     IonicModule.forRoot(), 
     AppRoutingModule,
     AngularFireModule.initializeApp(firebaseConfig),
+    AngularFireAuthModule,
     AngularFirestoreModule,
     AngularFireStorageModule,
-    AngularFireAuthModule,
-    HttpClientModule
+    HttpClientModule,
   ],
   providers: [
     HTTP,
     StatusBar,
+    AuthenticateService,
     SplashScreen,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
