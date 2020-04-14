@@ -72,10 +72,10 @@ export class ContractorPage implements OnInit {
       const descriptions = []
       for (let i = 1; i <= 4; i++) {
         // img = this.http.get()
-        const img = this.nativeHttp.get(`https://console.firebase.google.com/project/final-year-project-f5b9d/storage/final-year-project-f5b9d.appspot.com/files/${name}/${i}.jpg`, {}, {
-          'Content-Type': 'application/json'
-        }).pipe()
-        //const img = faceapi.fetchImage(`https://console.firebase.google.com/project/final-year-project-f5b9d/storage/final-year-project-f5b9d.appspot.com/files/${name}/${i}.jpg`)
+        //const img = this.nativeHttp.get(`https://console.firebase.google.com/project/final-year-project-f5b9d/storage/final-year-project-f5b9d.appspot.com/files/${name}/${i}.jpg`, {}, {
+          //'Content-Type': 'application/json'
+        //}).pipe()
+        const img = faceapi.fetchImage(`https://console.firebase.google.com/project/final-year-project-f5b9d/storage/final-year-project-f5b9d.appspot.com/files/${name}/${i}.jpg`)
         const detections = faceapi.detectSingleFace(img).withFaceLandmarks().withFaceDescriptor()
         descriptions.push(detections.descriptor)
         }

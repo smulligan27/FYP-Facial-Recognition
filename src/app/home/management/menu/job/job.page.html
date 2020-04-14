@@ -4,6 +4,55 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+  <ion-content>
+    <ion-list>
+  
+      <ion-item>
+        <ion-label position="floating">Job Name</ion-label>
+        <ion-input type="text" [(ngModel)]="jobname"></ion-input>
+      </ion-item>
+  
+      <ion-item>
+        <ion-label position="floating">Date</ion-label>
+        <ion-input type="text" [(ngModel)]="date"></ion-input>
+      </ion-item>
+  
+      <ion-item>
+        <ion-label position="floating">Time</ion-label>
+        <ion-input type="text" [(ngModel)]="time"></ion-input>
+      </ion-item>
 
+      <ion-item>
+        <ion-label position="floating">Location</ion-label>
+        <ion-input type="text" [(ngModel)]="location"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="floating">Materials</ion-label>
+        <ion-input type="text" [(ngModel)]="materials"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="floating">Carpenter</ion-label>
+        <ion-input type="text" placeholder="Are they needed?" [(ngModel)]="carpenter"></ion-input>
+      </ion-item>
+  
+      <ion-item>
+        <ion-label position="floating">Block Layer</ion-label>
+        <ion-input type="text" placeholder="Are they needed?" [(ngModel)]="blocklayer"></ion-input>
+      </ion-item>
+  
+      <ion-item>
+        <ion-label position="floating">Electrician</ion-label>
+        <ion-input type="text" placeholder="Are they needed?" [(ngModel)]="electrician"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="floating">Plumber</ion-label>
+        <ion-input type="text" placeholder="Are they needed?" [(ngModel)]="plumber"></ion-input>
+      </ion-item>
+      
+  </ion-list>
+
+  <ion-button fill="solid" expand="block" color="dark" (click)="job()">New Job</ion-button>
 </ion-content>
