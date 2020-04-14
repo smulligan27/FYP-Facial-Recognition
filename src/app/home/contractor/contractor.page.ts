@@ -7,6 +7,8 @@ import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/fire
 import { HttpClient } from '@angular/common/http';
 import { HTTP } from '@ionic-native/http/ngx'
 import { Platform, LoadingController } from '@ionic/angular'
+import { finalize } from 'rxjs/operators';
+import { from } from 'rxjs';
 const { Camera, Filesystem, Storage } = Plugins;
 
 declare var faceapi;
@@ -23,7 +25,7 @@ export interface CData {
 export class ContractorPage implements OnInit {
 
   name: string = '';
-  currentImage: any;
+  currentImage: any = [];
   private contractorCollection: AngularFirestoreCollection;
   constructor(
     private loadingctrl: LoadingController,
@@ -71,11 +73,18 @@ export class ContractorPage implements OnInit {
       //const {name} = this;
       const descriptions = []
       for (let i = 1; i <= 4; i++) {
-        // img = this.http.get()
-        //const img = this.nativeHttp.get(`https://console.firebase.google.com/project/final-year-project-f5b9d/storage/final-year-project-f5b9d.appspot.com/files/${name}/${i}.jpg`, {}, {
-          //'Content-Type': 'application/json'
-        //}).pipe()
-        const img = faceapi.fetchImage(`https://console.firebase.google.com/project/final-year-project-f5b9d/storage/final-year-project-f5b9d.appspot.com/files/${name}/${i}.jpg`)
+        // let img = this.nativeHttp.get(`https://console.firebase.google.com/project/final-year-project-f5b9d/storage/final-year-project-f5b9d.appspot.com/files/${name}/${i}.jpg`,{},{
+        //   'content-Type': 'image/*'
+        // });
+
+        // from(img).pipe()
+        // .subscribe(data => {
+        //   this.data = data;
+        //   console.log(data);
+        // }, err => {
+        //   console.log('JS Call error: ', err);
+        // });
+        const img = faceapi.fetchImage(`https://cors-anywhere.herokuapp.com/https://firebasestorage.googleapis.com/v0/b/final-year-project-f5b9d.appspot.com/o/${name}%2F${i}.jpg`)
         const detections = faceapi.detectSingleFace(img).withFaceLandmarks().withFaceDescriptor()
         descriptions.push(detections.descriptor)
         }
@@ -83,3 +92,5 @@ export class ContractorPage implements OnInit {
     }
   }
 }
+
+// https://cors-anywhere.herokuapp.com/

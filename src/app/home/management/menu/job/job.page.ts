@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
 import { database } from 'firebase';
+import { CrudService } from 'src/app/services/crud.service';
 import { Router } from '@angular/router'
+import { Observable } from 'rxjs';
 
 export interface CData {
   jobname: string;
@@ -22,6 +24,7 @@ export interface CData {
 })
 export class JobPage implements OnInit {
 
+  contractList: any;
   jobname: string = '';
   date: string = '';
   time: string = '';
@@ -35,25 +38,26 @@ export class JobPage implements OnInit {
   private contractorCollection: AngularFirestoreCollection;
   private jobCollection: AngularFirestoreCollection<CData>;
 
-  constructor(private db: AngularFirestore,public router: Router) { 
+  constructor(private db: AngularFirestore,public router: Router, private crudService: CrudService) { 
     this.jobCollection = db.collection<CData>('jobs');
     this.contractorCollection = db.collection('contractors');
 
-    // db.collection("contractors").where("capital", "==", true)
-    // .get()
-    // .then(function(querySnapshot) {
-    //     querySnapshot.forEach(function(doc) {
-    //         // doc.data() is never undefined for query doc snapshots
-    //         console.log(doc.id, " => ", doc.data());
-    //     });
-    // })
-    // .catch(function(error) {
-    //     console.log("Error getting documents: ", error);
-    // });
   }
 
   ngOnInit() {
-    
+    // this.crudService.read_contractors().subscribe(data => {
+    //   this.contractList = data.map(e => {
+    //     return {
+    //       id: e.payload.doc.id,
+    //       isEdit: false,
+    //       name: e.payload.doc.data()['name'],
+    //       contact: e.payload.doc.data()['contactnumber'],
+    //       skill: e.payload.doc.data()['skill'],
+    //     };
+    //   })
+    //   console.log(this.contractList);
+ 
+    // });
   }
 
   job(){

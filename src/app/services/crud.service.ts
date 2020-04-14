@@ -21,4 +21,8 @@ export class CrudService {
   delete_job(record_id) {
     this.firestore.doc('jobs/' + record_id).delete();
   }
+
+  read_contractors() {
+    return this.firestore.collection('contractors').snapshotChanges();
+  }
 }
