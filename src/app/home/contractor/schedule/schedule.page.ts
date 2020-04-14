@@ -4,6 +4,8 @@ import * as firebase from 'firebase/app';
 import 'firebase/firestore';
 import { database } from 'firebase';
 import { Observable } from 'rxjs';
+import { CrudService } from 'src/app/services/crud.service';
+import { Router } from '@angular/router'
 
 export interface CData {
   jobname: string;
@@ -23,35 +25,46 @@ export interface CData {
   styleUrls: ['./schedule.page.scss'],
 })
 export class SchedulePage implements OnInit {
-  //jobsList: any;
+  jobsList: any;
+  jobname: string;
+  date: string;
+  time: string;
+  location: string;
+  materials: string;
+  carpenter: string;
+  blocklayer: string;
+  electrician: string;
+  plumber: string;
   
   jobsCollection: AngularFirestoreCollection<CData>;
   jobs: Observable<CData[]>;
 
-  constructor(private db: AngularFirestore) {
-  //   this.getJobsList().then( function(querySnapshot) {
-  //     querySnapshot.forEach(function(doc) {
-  //         console.log(doc.id, " => ", doc.data());
-  //     });
-  // }) 
-  // .catch(function(error) {
-  //     console.log("Error getting documents: ", error);
-  // });
-
-        this.jobsCollection = this.db.collection('jobs')
-        this.jobs = this.jobsCollection.valueChanges()
+  constructor(private db: AngularFirestore, private crudService: CrudService, public router: Router,) {
+      this.jobsCollection = this.db.collection('jobs')
+       this.jobs = this.jobsCollection.valueChanges()
    }
 
   ngOnInit() {
-    //this.jobsList = this.getJobsList();
+    this.crudService.read_jobs().subscribe(data => {
+ 
+      this.jobsList = data.map(e => {
+        return {
+          id: e.payload.doc.id,
+          isEdit: false,
+          jobname: e.payload.doc.data()['jobname'],
+          date: e.payload.doc.data()['date'],
+          time: e.payload.doc.data()['time'],
+          location: e.payload.doc.data()['location'],
+          materials: e.payload.doc.data()['materials'],
+          carpenter: e.payload.doc.data()['carpenter'],
+          blocklayer: e.payload.doc.data()['blocklayer'],
+          electrician: e.payload.doc.data()['electrician'],
+          plumber: e.payload.doc.data()['plumber'],
+        };
+      })
+      console.log(this.jobsList);
+ 
+    });
   }
-
-  // getJobsList() {
-  //   return firebase.firestore().collection('jobs').get();
-  // }
   
 }
-//jobs => this.jobsList = jobs
-//private jobCollection: AngularFirestoreCollection<CData>;
-  //jobsList: any[];
-   //this.jobCollection = db.collection<CData>('jobs');

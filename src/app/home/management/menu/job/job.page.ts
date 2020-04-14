@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
 import { database } from 'firebase';
+import { Router } from '@angular/router'
 
 export interface CData {
   jobname: string;
@@ -34,7 +35,7 @@ export class JobPage implements OnInit {
   private contractorCollection: AngularFirestoreCollection;
   private jobCollection: AngularFirestoreCollection<CData>;
 
-  constructor(private db: AngularFirestore) { 
+  constructor(private db: AngularFirestore,public router: Router) { 
     this.jobCollection = db.collection<CData>('jobs');
     this.contractorCollection = db.collection('contractors');
 
@@ -77,4 +78,7 @@ export class JobPage implements OnInit {
 
   }
 
+  list(){
+    this.router.navigate(['/home/tabs/management/menu/job/list'])
+  }
 }

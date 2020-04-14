@@ -1,5 +1,8 @@
 <ion-header>
   <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+   </ion-buttons>
     <ion-title>Assign Job</ion-title>
   </ion-toolbar>
 </ion-header>
@@ -55,4 +58,5 @@
   </ion-list>
 
   <ion-button fill="solid" expand="block" color="dark" (click)="job()">New Job</ion-button>
+  <ion-button fill="solid" expand="block" color="dark" (click)="list()">List of Jobs</ion-button>
 </ion-content>

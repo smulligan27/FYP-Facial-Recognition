@@ -1,23 +1,25 @@
 <ion-header>
   <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+   </ion-buttons>
     <ion-title>schedule</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <ion-card>
-  <ion-card-header>
-    {{ CData.jobname }}
-  </ion-card-header>
-  <ion-card-content>
-    {{ CData.date }},
-    {{ jobs.time }},
-    {{ jobs.location }},
-    {{ jobs.materials }},
-    {{ jobs.carpenter }},
-    {{ jobs.blocklayer }},
-    {{ jobs.electrician }},
-    {{ jobs.plumber }}
-  </ion-card-content>
-</ion-card>
-</ion-content>
+  <ion-card *ngFor="let item of jobsList">
+    <span *ngIf="!item.isEdit; else elseBlock">
+      <ion-card-header>
+        <ion-card-title>{{item.jobname}}</ion-card-title>
+        <ion-card-subtitle>{{item.date}}</ion-card-subtitle>
+      </ion-card-header>
+      <ion-card-content>{{item.time}}</ion-card-content>
+      <ion-card-content>Location: {{item.location}}</ion-card-content>
+      <ion-card-content>Materials: {{item.materials}}</ion-card-content>
+      <ion-card-content>Carpenter: {{item.carpenter}}</ion-card-content>
+      <ion-card-content>Block Layer: {{item.blocklayer}}</ion-card-content>
+      <ion-card-content>Electrician: {{item.electrician}}</ion-card-content>
+      <ion-card-content>Plumber: {{item.plumber}}</ion-card-content>
+    
+
