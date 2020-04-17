@@ -8,18 +8,14 @@
   
 <ion-col size="30"> 
 <ion-list>
-  <ion-item>
-    <ion-label position="floating">Name</ion-label>
-    <ion-input type="text" [(ngModel)]="name"></ion-input>
-  </ion-item>
 
   <ion-item>
-    <ion-label position="floating">Password</ion-label>
+    <ion-label position="floating" color="primary">Password</ion-label>
     <ion-input type="password" [(ngModel)]="password"></ion-input>
   </ion-item>
 </ion-list>
 </ion-col>
-<ion-button fill="solid" expand="block" color="dark" (click)="log(password)">Schedule</ion-button>
+<ion-button fill="solid" expand="block" color="dark" (click)="log(password)">Login</ion-button>
 <ion-fab vertical="bottom" horizontal="center" slot="fixed">
   <ion-fab-button (click)="takeImage()">
       <script defer src="face-api.min.js"></script>

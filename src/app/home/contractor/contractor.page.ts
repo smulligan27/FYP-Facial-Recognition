@@ -66,6 +66,8 @@ export class ContractorPage implements OnInit {
     const { password } = this;
     if (password == this.login){
       this.router.navigate(['/home/tabs/contractor/schedule'])
+    } else if(password != this.login){
+      this.alert.presentAlert("Error","Password","Wrong password was entered!");
     }
   }
   public async takeImage() {
