@@ -9,7 +9,8 @@ import { Router } from '@angular/router'
 
 export interface CData {
   jobname: string;
-  date: string;
+  startdate: string;
+  enddate: string;
   time: string;
   location: string;
   materials: string;
@@ -27,7 +28,8 @@ export interface CData {
 export class SchedulePage implements OnInit {
   jobsList: any;
   jobname: string;
-  date: string;
+  startdate: string;
+  enddate: string;
   time: string;
   location: string;
   materials: string;
@@ -52,7 +54,8 @@ export class SchedulePage implements OnInit {
           id: e.payload.doc.id,
           isEdit: false,
           jobname: e.payload.doc.data()['jobname'],
-          date: e.payload.doc.data()['date'],
+          startdate: e.payload.doc.data()['startdate'],
+          enddate: e.payload.doc.data()['enddate'],
           time: e.payload.doc.data()['time'],
           location: e.payload.doc.data()['location'],
           materials: e.payload.doc.data()['materials'],

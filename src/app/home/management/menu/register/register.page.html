@@ -9,7 +9,7 @@
 
 <ion-content>
   <ion-list>
-
+      <!-- Input from user -->
     <ion-item>
       <ion-label position="floating">Name</ion-label>
       <ion-input type="text" [(ngModel)]="name"></ion-input>
@@ -26,7 +26,7 @@
     </ion-item>
     
 </ion-list>
-
+<!-- Form to choose images from local storage -->
 <ion-card text-center *ngIf="!isUploading && !isUploaded">
   <ion-card-header>
     <ion-card-title>Choose Images to Upload</ion-card-title>
@@ -45,11 +45,12 @@
 </ion-card>
 <ion-card text-center *ngIf="isUploading && !isUploaded">
   <ion-card-header>
+    <!-- Displays selected file filename -->
     <ion-card-title
       >Selected File:<b>{{ fileName }}</b></ion-card-title
     >
   </ion-card-header>
-
+  <!-- Then shows the percentage of progress in upload task-->
   <ion-card-content>
     <div *ngIf="percentage | async as pct">
       Progress: {{ pct | number }}%
@@ -59,6 +60,7 @@
       File Size: {{ snap.totalBytes | fileSizePipe }} Transfered:
       {{ snap.bytesTransferred | fileSizePipe }}
       <div *ngIf="snapshot && snap.bytesTransferred != snap.totalBytes">
+        <!-- Offers the option to pause, resume and ccancel image upload -->
         <ion-button
           color="warning"
           size="small"
@@ -89,7 +91,7 @@
       <b>{{ fileName }}</b> Uploaded!
     </ion-card-title>
   </ion-card-header>
-
+  <!-- Gives the option to download the file after it is uploaded -->
   <ion-card-content>
     <div *ngIf="UploadedFileURL | async as url">
       <img [src]="url" />
@@ -104,7 +106,7 @@
     >
   </ion-card-content>
 </ion-card>
-
+<!-- Register Button -->
 <ion-button fill="solid" expand="block" color="dark" (click)="register()">Register</ion-button>
 
 </ion-content>

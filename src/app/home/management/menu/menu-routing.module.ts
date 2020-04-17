@@ -15,6 +15,22 @@ const routes: Routes = [
   {
     path: 'job',
     loadChildren: () => import('./job/job.module').then( m => m.JobPageModule)
+  },
+  {
+    path: 'listc',
+    loadChildren: () => import('./listc/listc.module').then( m => m.ListcPageModule)
+  },
+  {
+    path: 'listb',
+    loadChildren: () => import('./listb/listb.module').then( m => m.ListbPageModule)
+  },
+  {
+    path: 'liste',
+    loadChildren: () => import('./liste/liste.module').then( m => m.ListePageModule)
+  },
+  {
+    path: 'listp',
+    loadChildren: () => import('./listp/listp.module').then( m => m.ListpPageModule)
   }
 ];
 

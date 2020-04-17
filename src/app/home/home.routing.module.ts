@@ -4,7 +4,7 @@ import { HomePage } from './home.page';
 import { ManagementPage } from './management/management.page';
 import { ContractorPage } from './contractor/contractor.page';
 
-
+// Routes for the tab buttons
 const routes: Routes = [
     {
         path: 'tabs',

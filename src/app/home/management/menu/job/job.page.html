@@ -16,10 +16,15 @@
       </ion-item>
   
       <ion-item>
-        <ion-label position="floating">Date</ion-label>
-        <ion-input type="text" [(ngModel)]="date"></ion-input>
+        <ion-label position="floating">Start Date</ion-label>
+        <ion-input type="text" [(ngModel)]="startdate"></ion-input>
       </ion-item>
-  
+      
+      <ion-item>
+        <ion-label position="floating">End Date</ion-label>
+        <ion-input type="text" [(ngModel)]="enddate"></ion-input>
+      </ion-item>
+
       <ion-item>
         <ion-label position="floating">Time</ion-label>
         <ion-input type="text" [(ngModel)]="time"></ion-input>
@@ -36,34 +41,34 @@
       </ion-item>
 
       <ion-item>
-        <ion-label position="floating">Carpenter</ion-label>
-        <ion-input type="text" placeholder="Are they needed?" [(ngModel)]="carpenter"></ion-input>
+        <ion-label>Carpenter</ion-label>
+        <ion-select [compareWith]="compareWith" [(ngModel)]="carpenter" (change)="job(carpenter)">
+          <ion-select-option *ngFor="let item of carpetList" multiple="true" cancelText="Cancel" okText="Ok">{{item.name}}</ion-select-option>
+        </ion-select>
       </ion-item>
-  
+    
       <ion-item>
-        <ion-label position="floating">Block Layer</ion-label>
-        <ion-input type="text" placeholder="Are they needed?" [(ngModel)]="blocklayer"></ion-input>
+        <ion-label>Block Layer</ion-label>
+        <ion-select [compareWith]="compareWith" [(ngModel)]="blocklayer" (change)="job(blocklayer)">
+          <ion-select-option *ngFor="let item of blockList" multiple="true" cancelText="Cancel" okText="Ok">{{item.name}}</ion-select-option>
+        </ion-select>
       </ion-item>
-  
+    
       <ion-item>
-        <ion-label position="floating">Electrician</ion-label>
-        <ion-input type="text" placeholder="Are they needed?" [(ngModel)]="electrician"></ion-input>
+        <ion-label>Plumber</ion-label>
+        <ion-select [compareWith]="compareWith" [(ngModel)]="plumber" (change)="job(plumber)">
+          <ion-select-option *ngFor="let item of plumbList" multiple="true" cancelText="Cancel" okText="Ok">{{item.name}}</ion-select-option>
+        </ion-select>
       </ion-item>
-
+    
       <ion-item>
-        <ion-label position="floating">Plumber</ion-label>
-        <ion-input type="text" placeholder="Are they needed?" [(ngModel)]="plumber"></ion-input>
+        <ion-label>Electrician</ion-label>
+        <ion-select [compareWith]="compareWith" [(ngModel)]="electrician" (change)="job(electrician)">
+          <ion-select-option *ngFor="let item of electricList" multiple="true" cancelText="Cancel" okText="Ok">{{item.name}}</ion-select-option>
+        </ion-select>
       </ion-item>
       
   </ion-list>
-
-
-  <!-- <ion-item>
-    <ion-label>Carpenter</ion-label>
-    <ion-select *ngFor="let item of contractList" multiple="true" cancelText="Nah" okText="Okay!">
-      <ion-select-option [(ngModel)]="carpenter">{{item.name}}</ion-select-option>
-    </ion-select>
-  </ion-item> -->
 
 
   <ion-button fill="solid" expand="block" color="dark" (click)="job()">New Job</ion-button>

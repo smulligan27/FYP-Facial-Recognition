@@ -12,7 +12,7 @@ export interface MyData {
   filepath: string;
   size: number;
 }
-
+//user input from html
 export interface CData {
   name: string;
   contactNumber: string;
@@ -31,19 +31,11 @@ export class RegisterPage implements OnInit {
   contactNumber: string = '';
   skill: string = '';
 
-  // Upload Task 
+  // Upload Task variables 
   task: AngularFireUploadTask;
- 
-  // Progress in percentage
   percentage: Observable<number>;
- 
-  // Snapshot of uploading file
   snapshot: Observable<any>;
- 
-  // Uploaded File URL
   UploadedFileURL: Observable<string>;
- 
-  //Uploaded Image List
   images: Observable<MyData[]>;
  
   //File details  
@@ -72,7 +64,7 @@ export class RegisterPage implements OnInit {
     const file = event.item(0)
     const {name} = this;
  
-    // Validation for Images Only
+    // Validation to check for Images Only
     if (file.type.split('/')[0] !== 'image') { 
      console.error('unsupported file type :( ')
      return;
@@ -80,14 +72,10 @@ export class RegisterPage implements OnInit {
  
     this.isUploading = true;
     this.isUploaded = false;
- 
- 
     this.fileName = file.name;
  
     // The storage path
     const path = `${name}/${file.name}`;
-    
-    
  
     // Totally optional metadata
     const customMetadata = { app: 'Contractor Image Upload Demo' };
@@ -105,7 +93,7 @@ export class RegisterPage implements OnInit {
       finalize(() => {
         // Get uploaded file storage path
         this.UploadedFileURL = fileRef.getDownloadURL();
-    
+        //storing image and filepath to database
         this.UploadedFileURL.subscribe(resp=>{
           this.addImagetoDB({
             imagename: file.name,
@@ -141,8 +129,10 @@ export class RegisterPage implements OnInit {
   }
 
   register() {
+    //Taking in details of contractor
     const { name, contactNumber, skill } = this;
-    this.contractorCollection.add({
+    //creating database based of skill
+    this.database.collection(skill).add({
       name: name,
       contactNumber: contactNumber,
       skill: skill

@@ -17,6 +17,7 @@ export class MenuPage implements OnInit {
 
   ngOnInit() {
   }
+  //functions below to navigate to the pages when clicked
   reg(){
     this.router.navigate(['/home/tabs/management/menu/register'])
   }
@@ -24,6 +25,24 @@ export class MenuPage implements OnInit {
   job(){
     this.router.navigate(['/home/tabs/management/menu/job'])
   }
+
+  carpenter(){
+    this.router.navigate(['/home/tabs/management/menu/listc'])
+  }
+
+  block(){
+    this.router.navigate(['/home/tabs/management/menu/listb'])
+  }
+
+  electric(){
+    this.router.navigate(['/home/tabs/management/menu/liste'])
+  }
+
+  plumb(){
+    this.router.navigate(['/home/tabs/management/menu/listp'])
+  }
+
+
 
   logout(){
     this.authService.logoutUser()

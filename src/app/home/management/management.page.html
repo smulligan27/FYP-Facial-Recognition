@@ -1,12 +1,13 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Management</ion-title>
+    <ion-title>Face Detech - Management</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content padding>
+  
   <form class="form" [formGroup]="validations_form"  (ngSubmit)="loginUser(validations_form.value)">
- 
+    <!-- Takes in emaill and password then shows error message if wrong or invalid -->
     <ion-item>
       <ion-label  position="floating" color="primary">Email</ion-label>
       <ion-input type="text" formControlName="email"></ion-input>

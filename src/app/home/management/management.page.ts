@@ -29,7 +29,7 @@ export class ManagementPage implements OnInit {
   ) { }
  
   ngOnInit() {
- 
+    //sets the requirements in the form for input
     this.validations_form = this.formBuilder.group({
       email: new FormControl('', Validators.compose([
         Validators.required,
@@ -42,7 +42,7 @@ export class ManagementPage implements OnInit {
     });
   }
  
- 
+ //Prints out validation messages
   validation_messages = {
     'email': [
       { type: 'required', message: 'Email is required.' },
@@ -54,13 +54,12 @@ export class ManagementPage implements OnInit {
     ]
   };
  
- 
+ //checks firebase authentication for username and password and routes to menu if correct
   loginUser(value){
     this.authService.loginUser(value)
     .then(res => {
       console.log(res);
       this.errorMessage = "";
-      //this.navCtrl.navigateForward('/menu');
       this.router.navigate(['/home/tabs/management/menu'])
     }, err => {
       this.errorMessage = err.message;

@@ -5,7 +5,8 @@ import { Observable } from 'rxjs';
 
 export interface CData {
   jobname: string;
-  date: string;
+  startdate: string;
+  enddate: string;
   time: string;
   location: string;
   materials: string;
@@ -24,7 +25,8 @@ export class ListPage implements OnInit {
 
   jobsList: any;
   jobname: string;
-  date: string;
+  startdate: string;
+  enddate: string;
   time: string;
   location: string;
   materials: string;
@@ -43,7 +45,8 @@ export class ListPage implements OnInit {
           id: e.payload.doc.id,
           isEdit: false,
           jobname: e.payload.doc.data()['jobname'],
-          date: e.payload.doc.data()['date'],
+          startdate: e.payload.doc.data()['startdate'],
+          enddate: e.payload.doc.data()['enddate'],
           time: e.payload.doc.data()['time'],
           location: e.payload.doc.data()['location'],
           materials: e.payload.doc.data()['materials'],
@@ -60,7 +63,7 @@ export class ListPage implements OnInit {
 
   EditRecord(record) {
     record.isEdit = true;
-    record.Editdate = record.date;
+    record.Editenddate = record.enddate;
     record.Edittime = record.time;
     record.Editlocation = record.location;
     record.Editmaterials = record.materials;
@@ -72,7 +75,7 @@ export class ListPage implements OnInit {
  
   UpdateRecord(recordRow) {
     let record = {};
-    record['date'] = recordRow.Editdate;
+    record['enddate'] = recordRow.Editenddate;
     record['time'] = recordRow.Edittime;
     record['location'] = recordRow.Editlocation;
     record['materials'] = recordRow.Editmaterials;

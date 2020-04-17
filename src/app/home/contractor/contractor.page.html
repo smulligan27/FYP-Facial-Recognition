@@ -1,22 +1,25 @@
 <ion-header>
-  <ion-title>Contractor</ion-title>
+  <ion-title>Face Detech - Contractor </ion-title>
 </ion-header>
 
 
 
 <ion-content>
+  
+<ion-col size="30"> 
 <ion-list>
-  <ion-row size="300">
-  <ion-col>
   <ion-item>
     <ion-label position="floating">Name</ion-label>
     <ion-input type="text" [(ngModel)]="name"></ion-input>
   </ion-item>
-</ion-col>
-</ion-row>
-</ion-list>
-<ion-button fill="solid" expand="block" color="dark" (click)="takeImage()">Set Name</ion-button>
 
+  <ion-item>
+    <ion-label position="floating">Password</ion-label>
+    <ion-input type="password" [(ngModel)]="password"></ion-input>
+  </ion-item>
+</ion-list>
+</ion-col>
+<ion-button fill="solid" expand="block" color="dark" (click)="log(password)">Schedule</ion-button>
 <ion-fab vertical="bottom" horizontal="center" slot="fixed">
   <ion-fab-button (click)="takeImage()">
       <script defer src="face-api.min.js"></script>
@@ -24,4 +27,8 @@
   </ion-fab-button>
 </ion-fab>
 
+
+<div style="display:none;" #loginImages>
+  <img alt="" srcset="" id="image_from_app">
+ </div>
 </ion-content>

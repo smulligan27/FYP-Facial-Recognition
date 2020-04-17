@@ -7,7 +7,8 @@ import { Observable } from 'rxjs';
 
 export interface CData {
   jobname: string;
-  date: string;
+  startdate: string;
+  enddate: string;
   time: string;
   location: string;
   materials: string;
@@ -24,9 +25,13 @@ export interface CData {
 })
 export class JobPage implements OnInit {
 
-  contractList: any;
+  carpetList: any;
+  blockList: any;
+  plumbList: any;
+  electricList: any;
   jobname: string = '';
-  date: string = '';
+  startdate: string = '';
+  enddate: string = '';
   time: string = '';
   location: string = '';
   materials: string = '';
@@ -45,26 +50,61 @@ export class JobPage implements OnInit {
   }
 
   ngOnInit() {
-    // this.crudService.read_contractors().subscribe(data => {
-    //   this.contractList = data.map(e => {
-    //     return {
-    //       id: e.payload.doc.id,
-    //       isEdit: false,
-    //       name: e.payload.doc.data()['name'],
-    //       contact: e.payload.doc.data()['contactnumber'],
-    //       skill: e.payload.doc.data()['skill'],
-    //     };
-    //   })
-    //   console.log(this.contractList);
+    this.crudService.read_carpenters().subscribe(data => {
+      this.carpetList = data.map(e => {
+        return {
+          id: e.payload.doc.id,
+          isEdit: false,
+          name: e.payload.doc.data()['name'],
+        };
+      })
+      console.log(this.carpetList);
  
-    // });
+    });
+
+    this.crudService.read_plumbers().subscribe(data => {
+      this.plumbList = data.map(e => {
+        return {
+          id: e.payload.doc.id,
+          isEdit: false,
+          name: e.payload.doc.data()['name'],
+        };
+      })
+      console.log(this.plumbList);
+ 
+    });
+
+    this.crudService.read_blocklayers().subscribe(data => {
+      this.blockList = data.map(e => {
+        return {
+          id: e.payload.doc.id,
+          isEdit: false,
+          name: e.payload.doc.data()['name'],
+        };
+      })
+      console.log(this.blockList);
+ 
+    });
+
+    this.crudService.read_electricians().subscribe(data => {
+      this.electricList = data.map(e => {
+        return {
+          id: e.payload.doc.id,
+          isEdit: false,
+          name: e.payload.doc.data()['name'],
+        };
+      })
+      console.log(this.electricList);
+ 
+    });
   }
 
   job(){
-    const { jobname, date, time, location, materials, carpenter, blocklayer, electrician, plumber } = this;
+    const { jobname, startdate, enddate, time, location, materials, carpenter, blocklayer, electrician, plumber } = this;
     this.jobCollection.add({
       jobname: jobname,
-      date: date,
+      startdate: startdate,
+      enddate: enddate,
       time: time,
       location: location,
       materials: materials,

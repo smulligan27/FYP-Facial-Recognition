@@ -12,7 +12,8 @@
     <span *ngIf="!item.isEdit; else elseBlock">
       <ion-card-header>
         <ion-card-title>{{item.jobname}}</ion-card-title>
-        <ion-card-subtitle>{{item.date}}</ion-card-subtitle>
+        <ion-card-subtitle>Start Date: {{item.startdate}}</ion-card-subtitle>
+        <ion-card-subtitle>End Date: {{item.enddate}}</ion-card-subtitle>
       </ion-card-header>
       <ion-card-content>{{item.time}}</ion-card-content>
       <ion-card-content>Location: {{item.location}}</ion-card-content>
