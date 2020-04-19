@@ -14,6 +14,7 @@ export class AlertService {
 
    async presentAlert(header,subheader,message)
    {
+     //creates the alert and displays it as a header
       const alert = await this.alertController.create({
         header: header,
         subHeader: subheader,

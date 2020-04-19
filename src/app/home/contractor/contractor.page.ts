@@ -1,4 +1,4 @@
-import { Component,ViewChild,ElementRef, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Plugins, CameraResultType, Capacitor, FilesystemDirectory,
   CameraPhoto, CameraSource } from '@capacitor/core';
 import { faceapi } from './face-api.min.js'
@@ -13,7 +13,6 @@ import { finalize } from 'rxjs/operators';
 import {AlertService} from 'src/app/services/alert.service';
 import { database } from 'firebase';
 import { Observable } from 'rxjs';
-//import {Camera,CameraOptions } from '@ionic-native/camera/ngx';
 import { from } from 'rxjs';
 const { Camera, Filesystem, Storage } = Plugins;
 
@@ -46,8 +45,9 @@ export class ContractorPage implements OnInit {
   filepath: string = '';
   imagename: string = '';
   size: number;
-  private contractorCollection: AngularFirestoreCollection;
+
   constructor(
+
     private loadingController: LoadingController,
     private storage: AngularFireStorage,
     public router: Router, 
@@ -56,32 +56,39 @@ export class ContractorPage implements OnInit {
     private crudService: CrudService, 
     private http: HttpClient, 
     private nativeHttp: HTTP, 
-    private plt: Platform ) { 
-  }
+    private plt: Platform
+    
+    ) { }
 
   ngOnInit() {
   }
 
   log(){
+
+    //takes in the password entered to allow access to schedule
     const { password } = this;
     if (password == this.login){
       this.router.navigate(['/home/tabs/contractor/schedule'])
     } else if(password != this.login){
       this.alert.presentAlert("Error","Password","Wrong password was entered!");
     }
+
   }
+
   public async takeImage() {
+
+    //originally had input of name to get to the location 
+    //of the image stored and get the download url to access it
+    //this url would of then been used for the fetchImage()
     const { name } = this;
-    // const path = `${name}/1.jpg`;
-    // const fileRef = this.storage.ref(path);
-    // const img = this.UploadedFileURL = fileRef.getDownloadURL();
     const path = `${name}/1.jpg`;
     const fileRef = this.storage.ref(path);
     this.UploadedFileURL = fileRef.getDownloadURL();
     this.UploadedFileURL.subscribe(resp=>{
       console.log(resp)
-      //const LabeledFaceDescriptors = loadLabeledImages(resp)
     })
+
+    //Takes the data from the captured photo
     const capturedPhoto = await Camera.getPhoto({
       resultType: CameraResultType.Base64,
       source: CameraSource.Camera,
@@ -90,71 +97,67 @@ export class ContractorPage implements OnInit {
     console.log(capturedPhoto.base64String)
     
     Promise.all([
+      //reads in all the models needed for the api to perform the recognition
       await faceapi.nets.ssdMobilenetv1.loadFromUri('https://www.techbuildz.com/models'),
       await faceapi.nets.faceLandmark68Net.loadFromUri('https://www.techbuildz.com/models'),
       await faceapi.nets.faceRecognitionNet.loadFromUri('https://www.techbuildz.com/models')
-    ]).then(start)
+    ]).then(start) // calls the function straight after image being taken
+
     async function start(img) {
-      //const labeledFaceDescriptors = await loadLabeledImages()
-      // const path = `${name}/1.jpg`;
-      // const fileRef = this.storage.ref(path);
-      // const img = this.UploadedFileURL = fileRef.getDownloadURL();
+
+      //was trying here to hard code in the image since it couldnt access it
       const photo = faceapi.fetchImage('https://firebasestorage.googleapis.com/v0/b/final-year-project-f5b9d.appspot.com/o/sean%20curran%2F3.jpg?alt=media&token=fdedad1d-41e2-442a-98e5-41ed4441bb55')
+      
+      //detects if the image supplied has a face in it and if so get the model of the face to be stored in a float32Array
       const detection = faceapi.detectSingleFace(photo).withFaceLandmarks().withFaceDescriptor()
+
+      //appends the detections to a list
       const descriptions =[
         new Float32Array(detection.descriptor)
       ]
+
+      //trying to take in the detections from the face already stored
       const labeledFaceDescriptors = new faceapi.LabeledFaceDescriptors(name, descriptions )
       const faceMatcher = new faceapi.FaceMatcher(labeledFaceDescriptors, 0.6)
-      let image = capturedPhoto
-      //image = await faceapi.bufferToImage(capturedPhoto)
+
+      //was looking for the base 64 string but even with getting it here would not recognise it
+      let image = capturedPhoto.base64String
+
+      //supposed to take in blob and change it to be used 
+      image = await faceapi.bufferToImage(capturedPhoto)
       const detections = await faceapi.detectAllFaces(image).withFaceLandmarks().withFaceDescriptors()
       const resizedDetections = faceapi.resizeResults(detections)
+
+      //took the results of the two detections, then it was suppose to check them for a match and navigate
+      //to schedule page if match 
       const results = resizedDetections.map(d => faceMatcher.findBestMatch(d.descriptor))
       if (results >= 0.6){
         this.router.navigate(['/home/tabs/contractor/schedule'])
       }
     }
-    // function loadLabeledImages() {
-    //   //const descriptions = []
-    //   // for (let i = 1; i <= 4; i++) {
-    //   //   // let img = this.nativeHttp.get(`https://console.firebase.google.com/project/final-year-project-f5b9d/storage/final-year-project-f5b9d.appspot.com/files/${name}/${i}.jpg`)
-    //   //   // firebase.storage().ref().child().getDownloadURL()
-    //   //   // .then(response => this.someTextUrl = response)
-    //   //   // .catch(error => console.log('error', error))
-    //   //   const img = faceapi.fetchImage('https://firebasestorage.googleapis.com/v0/b/final-year-project-f5b9d.appspot.com/o/sean%20curran%2F3.jpg?alt=media&token=fdedad1d-41e2-442a-98e5-41ed4441bb55')
-    //   //   const detections = faceapi.detectSingleFace(img).withFaceLandmarks().withFaceDescriptor()
-    //   //   descriptions.push(detections.descriptor)
-    //   //   }
-    //   const path = `${name}/1.jpg`;
-    //   const fileRef = this.storage.ref(path);
-    //   const img = this.UploadedFileURL = fileRef.getDownloadURL();
-    //   const photo = faceapi.fetchImage(img)
-    //   const detections = faceapi.detectSingleFace(photo).withFaceLandmarks().withFaceDescriptor()
-    //   const descriptions =[
-    //     new Float32Array(detections.descriptor)
-    //   ]
-    //   return new faceapi.LabeledFaceDescriptors(name, descriptions )
-      //descriptions.push(detections.descriptor)
-      // const labeledDescriptors = [
-      //   return new faceapi.LabeledFaceDescriptors(name, descriptions )
-      // ]
-      //return new faceapi.LabeledFaceDescriptors(name, descriptions)
-   // }
+
+    //function i was using to try and label the descriptions
+    function loadLabeledImages() {
+
+      //loops through images stored in database using dynamic variables ${name} and ${i}
+      for (let i = 1; i <= 4; i++) {
+
+        //tryed sending nativehttp calls to cure the cors problem which i faced for a long time
+        let img1 = this.nativeHttp.get(`https://console.firebase.google.com/project/final-year-project-f5b9d/storage/final-year-project-f5b9d.appspot.com/files/${name}/${i}.jpg`)
+        
+        //trys to fetch the image also storedd in the cloud
+        const img = faceapi.fetchImage('https://firebasestorage.googleapis.com/v0/b/final-year-project-f5b9d.appspot.com/o/sean%20curran%2F3.jpg?alt=media&token=fdedad1d-41e2-442a-98e5-41ed4441bb55')
+        const detections = faceapi.detectSingleFace(img).withFaceLandmarks().withFaceDescriptor()
+        }
+    
+      //sends detections from what was stored to faceapi.LabeledFaceDescriptors
+      const image = faceapi.fetchImage('https://firebasestorage.googleapis.com/v0/b/final-year-project-f5b9d.appspot.com/o/sean%20curran%2F3.jpg?alt=media&token=fdedad1d-41e2-442a-98e5-41ed4441bb55')
+      const detections = faceapi.detectSingleFace(image).withFaceLandmarks().withFaceDescriptor()
+      const descriptions =[
+        new Float32Array(detections.descriptor)
+      ]
+      return new faceapi.LabeledFaceDescriptors(name, descriptions )
+   }
   }
   }
 
-// https://cors-anywhere.herokuapp.com/
-// return storageRef.getDownloadURL().toPromise().then(res => {
-//   console.log('URL: ', res);
-//   return res;
-// });
-
-
-// const descriptorsObama = [
-//   new Float32Array(results[0].descriptor)
-// ]
-
-// const labeledDescriptors = [
-//   new faceapi.LabeledFaceDescriptors('obama', descriptorsObama )
-// ]

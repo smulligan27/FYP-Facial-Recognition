@@ -48,7 +48,15 @@ export class RegisterPage implements OnInit {
 
   private imageCollection: AngularFirestoreCollection<MyData>;
   private contractorCollection: AngularFirestoreCollection<CData>;
-  constructor(private http: HttpClient, private storage: AngularFireStorage, private database: AngularFirestore) { 
+
+  constructor(
+    
+    private http: HttpClient, 
+    private storage: AngularFireStorage, 
+    private database: AngularFirestore
+    
+    ){
+       
     this.isUploading = false;
     this.isUploaded = false;
     //Set collection where our documents/ images info will save
@@ -78,7 +86,7 @@ export class RegisterPage implements OnInit {
     const path = `${name}/${file.name}`;
  
     // Totally optional metadata
-    const customMetadata = { app: 'Contractor Image Upload Demo' };
+    const customMetadata = { app: 'Contractor Image Upload' };
  
     //File reference
     const fileRef = this.storage.ref(path);
@@ -114,7 +122,7 @@ export class RegisterPage implements OnInit {
   }
  
   addImagetoDB(image: MyData) {
-    //Create an ID for document
+    //generates random ID for document
     const id = this.database.createId();
  
     //Set document id with value in database

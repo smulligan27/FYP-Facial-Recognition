@@ -10,7 +10,13 @@ import { Router } from '@angular/router'
 export class ListcPage implements OnInit {
 
   contList: any;
-  constructor(private crudService: CrudService, public router: Router) { }
+
+  constructor(
+    
+    private crudService: CrudService, 
+    public router: Router
+    
+    ) { }
 
   ngOnInit() {
     // Displays all the carpenters in card view to be acted on

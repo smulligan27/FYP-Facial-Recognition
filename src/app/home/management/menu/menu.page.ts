@@ -10,9 +10,12 @@ import { AuthenticateService } from 'src/app/services/authentication.service';
 })
 export class MenuPage implements OnInit {
 
-  constructor(public router: Router, 
+  constructor(
+    
+    public router: Router, 
     private navCtrl: NavController,
     private authService: AuthenticateService
+    
     ) { }
 
   ngOnInit() {

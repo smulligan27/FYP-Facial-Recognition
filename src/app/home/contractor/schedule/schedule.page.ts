@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
 import { CrudService } from 'src/app/services/crud.service';
 import { Router } from '@angular/router'
 
+//allows these values to be read from collection
 export interface CData {
   jobname: string;
   startdate: string;
@@ -25,6 +26,7 @@ export interface CData {
   templateUrl: './schedule.page.html',
   styleUrls: ['./schedule.page.scss'],
 })
+
 export class SchedulePage implements OnInit {
   jobsList: any;
   jobname: string;
@@ -41,14 +43,23 @@ export class SchedulePage implements OnInit {
   jobsCollection: AngularFirestoreCollection<CData>;
   jobs: Observable<CData[]>;
 
-  constructor(private db: AngularFirestore, private crudService: CrudService, public router: Router,) {
+  constructor(
+    
+    private db: AngularFirestore, 
+    private crudService: CrudService, 
+    public router: Router
+    
+    ) {
+
       this.jobsCollection = this.db.collection('jobs')
-       this.jobs = this.jobsCollection.valueChanges()
+      this.jobs = this.jobsCollection.valueChanges()
    }
 
   ngOnInit() {
+
+    //reads in the jobs from its collection
     this.crudService.read_jobs().subscribe(data => {
- 
+      //adds all the jobs and data to a list, list will be used to populate html
       this.jobsList = data.map(e => {
         return {
           id: e.payload.doc.id,

@@ -11,7 +11,8 @@
   <ion-card *ngFor="let item of jobsList">
     <span *ngIf="!item.isEdit; else elseBlock">
       <ion-card-header>
-        <ion-card-title>{{item.jobname}}</ion-card-title>
+        <!-- displays everything from the list using item. -->
+        <ion-card-title color="primary">{{item.jobname}}</ion-card-title>
         <ion-card-subtitle>Start Date: {{item.startdate}}</ion-card-subtitle>
         <ion-card-subtitle>End Date: {{item.enddate}}</ion-card-subtitle>
       </ion-card-header>

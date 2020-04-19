@@ -21,6 +21,7 @@ export class ManagementPage implements OnInit {
   errorMessage: string = '';
  
   constructor(
+    
     public router: Router,
     private navCtrl: NavController,
     private authService: AuthenticateService,

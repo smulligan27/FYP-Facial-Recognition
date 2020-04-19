@@ -8,10 +8,12 @@
 </ion-header>
 
 <ion-content>
+  <!-- Displays all the Carpenters in card view from the function that populated a list -->
+
   <ion-card *ngFor="let item of contList">
     <span *ngIf="!item.isEdit; else elseBlock">
       <ion-card-header>
-        <ion-card-title>Name: {{item.name}}</ion-card-title>
+        <ion-card-title color="primary">Name: {{item.name}}</ion-card-title>
         <ion-card-subtitle>Contact Number: {{item.contactNumber}}</ion-card-subtitle>
         <ion-card-subtitle>Skill: {{item.skill}}</ion-card-subtitle>
       </ion-card-header>
@@ -27,7 +29,7 @@
         <ion-grid>
           <ion-row>
             <ion-col>
-              Edit
+              Edit        <!--Puts buttons on each card to update or delete record in form of icons -->
             </ion-col>
             <ion-col>
               <ion-button fill="clear" color="medium" size="small" (click)="item.isEdit = false">
@@ -44,6 +46,8 @@
       </ion-card-title>
     </ion-card-header>
     <ion-card-content>
+            <!-- Sends the updated records to the function to update firestore -->
+
       <ion-item>
         <ion-label><strong>Name</strong></ion-label>
         <ion-input type="text" [(ngModel)]="item.Editname"></ion-input>

@@ -8,10 +8,19 @@ import { Router } from '@angular/router'
   styleUrls: ['./listb.page.scss'],
 })
 export class ListbPage implements OnInit {
+
   blocList: any;
-  constructor(private crudService: CrudService, public router: Router) { }
+
+  constructor(
+
+    private crudService: CrudService,
+    public router: Router
+
+     ) { }
 
   ngOnInit() {
+
+    //reads in the blocklayers and puts them in a list
     this.crudService.read_blocklayers().subscribe(data => {
  
       this.blocList = data.map(e => {
@@ -27,6 +36,7 @@ export class ListbPage implements OnInit {
  
     });
   }
+  //edits the record selected
   EditRecord(record) {
     record.isEdit = true;
     record.Editname = record.name;
@@ -34,6 +44,7 @@ export class ListbPage implements OnInit {
     record.Editskill = record.skill;
   }
  
+  //updates the record selected
   UpdateRecord(recordRow) {
     let record = {};
     record['name'] = recordRow.Editname;
@@ -43,6 +54,7 @@ export class ListbPage implements OnInit {
     recordRow.isEdit = false;
   }
 
+  //deletes the record selected
   RemoveRecord(rowID) {
     this.crudService.delete_blocklayer(rowID);
   }

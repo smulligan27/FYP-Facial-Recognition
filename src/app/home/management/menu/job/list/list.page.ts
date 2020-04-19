@@ -3,6 +3,7 @@ import { CrudService } from 'src/app/services/crud.service';
 import { Router } from '@angular/router'
 import { Observable } from 'rxjs';
 
+//exports all the inputs from the form
 export interface CData {
   jobname: string;
   startdate: string;
@@ -35,9 +36,16 @@ export class ListPage implements OnInit {
   electrician: string;
   plumber: string;
 
-  constructor(private crudService: CrudService, public router: Router) { }
+  constructor(
+
+    private crudService: CrudService, 
+    public router: Router
+    
+    ) { }
 
   ngOnInit() {
+
+    //reads in all the jobs to the list and puts them in a list to be displayed by the html
     this.crudService.read_jobs().subscribe(data => {
  
       this.jobsList = data.map(e => {
@@ -61,6 +69,7 @@ export class ListPage implements OnInit {
     });
   }
 
+  //edits the record of the selected card
   EditRecord(record) {
     record.isEdit = true;
     record.Editenddate = record.enddate;
@@ -72,7 +81,8 @@ export class ListPage implements OnInit {
     record.Editelectrician = record.electrician;
     record.Editplumber = record.plumber;
   }
- 
+  
+  //updates the record of the selected card
   UpdateRecord(recordRow) {
     let record = {};
     record['enddate'] = recordRow.Editenddate;
@@ -86,7 +96,8 @@ export class ListPage implements OnInit {
     this.crudService.update_job(recordRow.id, record);
     recordRow.isEdit = false;
   }
-
+  
+  //deletes the record of the selected card
   RemoveRecord(rowID) {
     this.crudService.delete_job(rowID);
   }

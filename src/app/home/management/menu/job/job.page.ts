@@ -5,6 +5,7 @@ import { CrudService } from 'src/app/services/crud.service';
 import { Router } from '@angular/router'
 import { Observable } from 'rxjs';
 
+//exports all the inputs from the html page to the typescript file
 export interface CData {
   jobname: string;
   startdate: string;
@@ -43,13 +44,22 @@ export class JobPage implements OnInit {
   private contractorCollection: AngularFirestoreCollection;
   private jobCollection: AngularFirestoreCollection<CData>;
 
-  constructor(private db: AngularFirestore,public router: Router, private crudService: CrudService) { 
+  constructor(
+
+    private db: AngularFirestore,
+    public router: Router,
+    private crudService: CrudService
+    
+    ) { 
+
     this.jobCollection = db.collection<CData>('jobs');
     this.contractorCollection = db.collection('contractors');
 
   }
 
   ngOnInit() {
+    //reads in the names of the carpenters to be displayed in the dropdown menu
+
     this.crudService.read_carpenters().subscribe(data => {
       this.carpetList = data.map(e => {
         return {
@@ -61,6 +71,8 @@ export class JobPage implements OnInit {
       console.log(this.carpetList);
  
     });
+
+    //reads in the names of the plumbers to be displayed in the dropdown menu
 
     this.crudService.read_plumbers().subscribe(data => {
       this.plumbList = data.map(e => {
@@ -74,6 +86,8 @@ export class JobPage implements OnInit {
  
     });
 
+    //reads in the names of the blocklayers to be displayed in the dropdown menu
+
     this.crudService.read_blocklayers().subscribe(data => {
       this.blockList = data.map(e => {
         return {
@@ -86,6 +100,7 @@ export class JobPage implements OnInit {
  
     });
 
+    //reads in the names of the electricians to be displayed in the dropdown menu
     this.crudService.read_electricians().subscribe(data => {
       this.electricList = data.map(e => {
         return {
@@ -98,7 +113,7 @@ export class JobPage implements OnInit {
  
     });
   }
-
+  //adds all the details from the form to the firebase colection jobs
   job(){
     const { jobname, startdate, enddate, time, location, materials, carpenter, blocklayer, electrician, plumber } = this;
     this.jobCollection.add({

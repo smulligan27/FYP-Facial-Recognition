@@ -1,5 +1,5 @@
 {
-  "appId": "io.ionic.starter",
+  "appId": "com.shane.contractor",
   "appName": "Facial-Rec",
   "bundledWebRuntime": false,
   "npmClient": "npm",
@@ -7,5 +7,6 @@
   "cordova": {},
   "server": {
     "url": "http://127.0.1.1:8100"
-  }
+  },
+  "linuxAndroidStudioPath": "/snap/android-studio/88/android-studio/bin/studio.sh"
 }

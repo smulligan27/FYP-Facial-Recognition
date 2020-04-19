@@ -6,15 +6,7 @@ import * as firebase from 'firebase';
    
     constructor(){}
    
-    registerUser(value){
-     return new Promise<any>((resolve, reject) => {
-       firebase.auth().createUserWithEmailAndPassword(value.email, value.password)
-       .then(
-         res => resolve(res),
-         err => reject(err))
-     })
-    }
-   
+    //uses firebases authentication service to verify if email and password are correct
     loginUser(value){
      return new Promise<any>((resolve, reject) => {
        firebase.auth().signInWithEmailAndPassword(value.email, value.password)
@@ -24,6 +16,7 @@ import * as firebase from 'firebase';
      })
     }
    
+    //terminates the session
     logoutUser(){
       return new Promise((resolve, reject) => {
         if(firebase.auth().currentUser){
@@ -38,8 +31,5 @@ import * as firebase from 'firebase';
       })
     }
    
-    // userDetails(){
-    //   return firebase.auth().currentUser;
-    // }
   }
  

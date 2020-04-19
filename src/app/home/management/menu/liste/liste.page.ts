@@ -10,7 +10,13 @@ import { Router } from '@angular/router'
 export class ListePage implements OnInit {
 
   elecList: any;
-  constructor(private crudService: CrudService, public router: Router) { }
+
+  constructor(
+    
+    private crudService: CrudService, 
+    public router: Router
+    
+    ) { }
 
   ngOnInit() {
     // Displays all the electricians in card view to be acted on
