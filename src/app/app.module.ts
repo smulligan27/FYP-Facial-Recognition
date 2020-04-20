@@ -16,7 +16,6 @@ import { HTTP } from '@ionic-native/http/ngx'
 import { AuthenticateService } from './services/authentication.service';
 import * as firebase from 'firebase';
 import { Camera } from '@ionic-native/camera/ngx';
-import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 
 @NgModule({
@@ -31,7 +30,6 @@ import { environment } from '../environments/environment';
     AngularFirestoreModule,
     AngularFireStorageModule,
     HttpClientModule,
-    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
   ],
   providers: [
     HTTP,
