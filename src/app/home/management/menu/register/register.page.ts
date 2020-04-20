@@ -4,7 +4,7 @@ import { AngularFireStorage, AngularFireUploadTask } from '@angular/fire/storage
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { finalize, tap } from 'rxjs/operators';
-import { FileSizeFormatPipe } from './file-size-format.pipe';
+//import { FileSizeFormatPipe } from './file-size-format.pipe';
  
 
 export interface MyData {

@@ -26,6 +26,7 @@ export interface CData {
 })
 export class JobPage implements OnInit {
 
+  compareWith: any;
   carpetList: any;
   blockList: any;
   plumbList: any;

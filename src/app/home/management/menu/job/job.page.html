@@ -42,7 +42,7 @@
       <!-- Dropdown menus for the different contractors -->
       <ion-item>
         <ion-label>Carpenter</ion-label>
-        <ion-select [compareWith]="compareWith" [(ngModel)]="carpenter" (change)="job(carpenter)">
+        <ion-select [compareWith]="compareWith" [(ngModel)]="carpenter" (change)="job()">
           <ion-select-option *ngFor="let item of carpetList" multiple="true" cancelText="Cancel" okText="Ok">{{item.name}}</ion-select-option>
           <ion-select-option  multiple="true" cancelText="Cancel" okText="Ok">Not Needed</ion-select-option>
         </ion-select>
@@ -50,7 +50,7 @@
     
       <ion-item>
         <ion-label>Block Layer</ion-label>
-        <ion-select [compareWith]="compareWith" [(ngModel)]="blocklayer" (change)="job(blocklayer)">
+        <ion-select [compareWith]="compareWith" [(ngModel)]="blocklayer" (change)="job()">
           <ion-select-option *ngFor="let item of blockList" multiple="true" cancelText="Cancel" okText="Ok">{{item.name}}</ion-select-option>
           <ion-select-option  multiple="true" cancelText="Cancel" okText="Ok">Not Needed</ion-select-option>
         </ion-select>
@@ -58,7 +58,7 @@
     
       <ion-item>
         <ion-label>Plumber</ion-label>
-        <ion-select [compareWith]="compareWith" [(ngModel)]="plumber" (change)="job(plumber)">
+        <ion-select [compareWith]="compareWith" [(ngModel)]="plumber" (change)="job()">
           <ion-select-option *ngFor="let item of plumbList" multiple="true" cancelText="Cancel" okText="Ok">{{item.name}}</ion-select-option>
           <ion-select-option  multiple="true" cancelText="Cancel" okText="Ok">Not Needed</ion-select-option>
         </ion-select>
@@ -66,7 +66,7 @@
     
       <ion-item>
         <ion-label>Electrician</ion-label>
-        <ion-select [compareWith]="compareWith" [(ngModel)]="electrician" (change)="job(electrician)">
+        <ion-select [compareWith]="compareWith" [(ngModel)]="electrician" (change)="job()">
           <ion-select-option *ngFor="let item of electricList" multiple="true" cancelText="Cancel" okText="Ok">{{item.name}}</ion-select-option>
           <ion-select-option  multiple="true" cancelText="Cancel" okText="Ok">Not Needed</ion-select-option>
         </ion-select>

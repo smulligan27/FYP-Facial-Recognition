@@ -11,7 +11,7 @@ import { CrudService } from 'src/app/services/crud.service';
 import { Router } from '@angular/router'
 import { finalize } from 'rxjs/operators';
 import {AlertService} from 'src/app/services/alert.service';
-import { database } from 'firebase';
+//import { database } from 'firebase';
 import { Observable } from 'rxjs';
 import { from } from 'rxjs';
 const { Camera, Filesystem, Storage } = Plugins;
@@ -40,7 +40,7 @@ export class ContractorPage implements OnInit {
   pathList: any;
   name: string = '';
   password: string = '';
-  login: string = 'Test27'
+  login: string = 'Rallying27'
   currentImage: any = [];
   filepath: string = '';
   imagename: string = '';
@@ -63,10 +63,10 @@ export class ContractorPage implements OnInit {
   ngOnInit() {
   }
 
-  log(){
+  log(password){
 
     //takes in the password entered to allow access to schedule
-    const { password } = this;
+    //const { password } = this;
     if (password == this.login){
       this.router.navigate(['/home/tabs/contractor/schedule'])
     } else if(password != this.login){
